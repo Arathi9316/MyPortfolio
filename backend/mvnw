@@ -1,0 +1,14 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Maven Wrapper Script for Unix
+# ----------------------------------------------------------------------------
+
+if command -v mvn >/dev/null 2>&1; then
+  exec mvn "$@"
+else
+  echo "Notice: 'mvn' is not on your PATH."
+  echo "You can import this project into IntelliJ IDEA / VS Code / Eclipse"
+  echo "or install Maven via 'brew install maven' / 'apt install maven' and run:"
+  echo "  mvn spring-boot:run"
+  exit 1
+fi

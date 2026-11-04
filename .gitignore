@@ -1,0 +1,123 @@
+# ===================================================================
+# Master Git Ignore - Ashish Rathi Full-Stack Portfolio
+# Covers Java / Spring Boot, React 19 / Node.js, IDEs, OS & Secrets
+# ===================================================================
+
+# -------------------------------------------------------------------
+# 1. Java & Spring Boot Backend
+# -------------------------------------------------------------------
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Keep Maven Wrapper
+!**/.mvn/wrapper/maven-wrapper.jar
+!**/mvnw
+!**/mvnw.cmd
+
+# H2 Database files
+*.mv.db
+*.trace.db
+
+# Spring Boot & Application Logs
+*.log
+**/logs/
+spring.log
+
+# Crash logs
+hs_err_pid*
+replay_pid*
+
+# -------------------------------------------------------------------
+# 2. React 19 / Node.js Frontend
+# -------------------------------------------------------------------
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/.vite/
+**/.vite-temp/
+
+# npm / yarn / pnpm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -------------------------------------------------------------------
+# 3. Environment Variables & Secrets (Keep templates, ignore secrets)
+# -------------------------------------------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!*.env.example
+
+# -------------------------------------------------------------------
+# 4. IDEs, Editors & Tools
+# -------------------------------------------------------------------
+# Eclipse & Spring Tool Suite (STS)
+**/.metadata/
+**/.recommenders/
+**/.settings/
+**/.project
+**/.classpath
+**/bin/
+*.launch
+
+# IntelliJ IDEA
+**/.idea/
+*.iws
+*.iml
+*.ipr
+**/out/
+
+# Visual Studio Code
+**/.vscode/
+!**/.vscode/extensions.json
+!**/.vscode/launch.json
+!**/.vscode/tasks.json
+*.code-workspace
+
+# NetBeans
+**/nbproject/private/
+**/nbbuild/
+**/dist/
+**/nbdist/
+
+# -------------------------------------------------------------------
+# 5. Operating System Generated Files
+# -------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.directory
+
+# -------------------------------------------------------------------
+# 6. Local Backups & Archive Bundles
+# -------------------------------------------------------------------
+portfolio-ashish-rathi.zip
+*.bak
+*.tmp
+*.swp
+*.swo

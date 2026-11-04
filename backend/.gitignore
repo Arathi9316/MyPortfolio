@@ -1,0 +1,30 @@
+# Maven build output
+target/
+*.class
+
+# Package archives
+*.jar
+*.war
+*.ear
+
+# Keep Maven Wrapper
+!.mvn/wrapper/maven-wrapper.jar
+!mvnw
+!mvnw.cmd
+
+# H2 Database files
+*.mv.db
+*.trace.db
+
+# Logs
+*.log
+logs/
+
+# Crash logs
+hs_err_pid*
+replay_pid*
+
+# Local environment & secret properties
+application-local.properties
+application-secret.properties
+.env
