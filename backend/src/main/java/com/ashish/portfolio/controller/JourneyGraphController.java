@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/journey")
-@CrossOrigin(origins = "*")
 public class JourneyGraphController {
 
     private final PortfolioService portfolioService;

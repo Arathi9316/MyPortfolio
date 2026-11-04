@@ -128,9 +128,9 @@ public class DataInitializer implements CommandLineRunner {
                     "C-DAC Pune",
                     "Post Graduate Certificate Programme in Advanced Computing (PGCP-AC)",
                     "Advanced Computing",
-                    "2025 - 2026",
-                    "Feb 2026",
-                    "Pursuing / In Progress",
+                    "Feb 2026 - Aug 2026",
+                    "Aug 2026",
+                    "Completed with Distinction",
                     "Pune, Maharashtra",
                     "Rigorous curriculum encompassing Advanced Java, Enterprise Spring Boot Architecture, Microservices, Cloud Technologies, Relational/NoSQL Databases, and Modern Web Systems."
                 ),
@@ -153,8 +153,8 @@ public class DataInitializer implements CommandLineRunner {
                     "2019 - 2021",
                     "2021",
                     "Completed with First Division",
-                    "Roorkee, Uttarakhand",
-                    "Completed Higher Secondary Education focusing on advanced Mathematics, Physics, Chemistry, and Computer Applications."
+                    "Muzaffarnagar, Uttar Pradesh",
+                    "Completed Higher Secondary Education focusing on advanced Mathematics, Physics, Chemistry"
                 ),
                 new Education(
                     null,
@@ -164,7 +164,7 @@ public class DataInitializer implements CommandLineRunner {
                     "2018 - 2019",
                     "2019",
                     "Completed with Distinction",
-                    "Roorkee, Uttarakhand",
+                    "Muzaffarnagar, Uttar Pradesh",
                     "Completed Secondary School education with strong foundation in Science, Mathematics, English, and Logical Reasoning."
                 )
             );
