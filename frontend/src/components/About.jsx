@@ -45,8 +45,26 @@ export default function About({ profile }) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left Column: Bio & Story */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-brand-400">
-            <User size={14} /> About Me
+          <div className="flex items-center gap-3.5">
+            <div className="w-14 h-14 rounded-2xl p-0.5 bg-gradient-to-tr from-brand-500 via-indigo-500 to-purple-500 shadow-lg shadow-brand-500/20 shrink-0">
+              <img
+                src="/profile.jpg"
+                alt="Ashish Rathi"
+                className="w-full h-full object-cover rounded-[14px] bg-slate-900"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = "/dummy-avatar.svg";
+                }}
+              />
+            </div>
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-brand-400">
+                <User size={14} /> About Me
+              </div>
+              <p className="text-xs font-mono text-slate-400">
+                Ashish Rathi &bull; Engineering Journey
+              </p>
+            </div>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -65,7 +83,8 @@ export default function About({ profile }) {
                 Post Graduate Certificate Programme in Advanced Computing
                 (PGCP-AC)
               </strong>{" "}
-              at <strong className="text-white">C-DAC Pune</strong> , and hold a{" "}
+              at &nbsp; &nbsp;<strong className="text-white">C-DAC Pune</strong>{" "}
+              , and hold a{" "}
               <strong className="text-blue-300">
                 B.Tech in Computer Science and Engineering
               </strong>{" "}
@@ -92,25 +111,25 @@ export default function About({ profile }) {
           </div>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-3 gap-4 pt-4">
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <span className="block text-2xl font-bold text-brand-400 font-mono">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-4">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center hover:border-brand-500/40 transition">
+              <span className="block text-xl sm:text-2xl font-bold text-brand-400 font-mono">
                 C-DAC
               </span>
               <span className="text-xs text-slate-400 mt-1 block">
                 Adv. Computing
               </span>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <span className="block text-2xl font-bold text-emerald-400 font-mono">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center hover:border-emerald-500/40 transition">
+              <span className="block text-xl sm:text-2xl font-bold text-emerald-400 font-mono">
                 B.Tech
               </span>
               <span className="text-xs text-slate-400 mt-1 block">
                 CSE Graduate
               </span>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <span className="block text-2xl font-bold text-purple-400 font-mono">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center hover:border-purple-500/40 transition">
+              <span className="block text-xl sm:text-2xl font-bold text-purple-400 font-mono">
                 Full-Stack
               </span>
               <span className="text-xs text-slate-400 mt-1 block">

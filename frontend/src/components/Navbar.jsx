@@ -34,10 +34,16 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-500 p-0.5 shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                <span className="font-mono font-bold text-brand-400 text-lg">AR</span>
-              </div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-500 p-0.5 shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform overflow-hidden">
+              <img
+                src="/profile.jpg"
+                alt="Ashish Rathi"
+                className="w-full h-full object-cover rounded-[10px] bg-slate-950"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/dummy-avatar.svg';
+                }}
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-base font-bold text-white tracking-tight flex items-center gap-1.5">
