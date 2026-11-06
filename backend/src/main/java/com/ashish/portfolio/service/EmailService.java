@@ -45,6 +45,7 @@ public class EmailService {
         }
 
         try {
+            log.info(">>> [EMAIL DISPATCH] Initiating email transmission via smtp.gmail.com for inquiry from: {} <{}>", request.getName(), request.getEmail());
             // 1. Send Notification Email to Ashish
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -103,12 +104,12 @@ public class EmailService {
 
             helper.setText(htmlBody, true);
             mailSender.send(message);
-            log.info("Portfolio inquiry notification email successfully sent to {}", recipientEmail);
+            log.info(">>> [EMAIL SUCCESS] Notification email successfully delivered to recipient: {}", recipientEmail);
 
             // 2. Send instant confirmation email back to the visitor
             sendConfirmationToVisitor(request);
         } catch (Exception e) {
-            log.error("Failed to send contact notification email: {}", e.getMessage(), e);
+            log.error(">>> [EMAIL ERROR] Failed to send contact notification email: {}", e.getMessage(), e);
         }
     }
 

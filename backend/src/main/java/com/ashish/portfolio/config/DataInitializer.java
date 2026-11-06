@@ -52,7 +52,6 @@ public class DataInitializer implements CommandLineRunner {
     private void seedProfile() {
         if (profileRepository.count() == 0) {
             Profile profile = new Profile(
-                1L,
                 "Ashish Rathi",
                 "Java Full-Stack Developer",
                 "Pune, Maharashtra",

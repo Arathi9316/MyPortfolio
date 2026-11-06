@@ -21,7 +21,6 @@ public class ProfileController {
         return portfolioService.getProfile()
             .map(profile -> ResponseEntity.ok(ApiResponse.ok(profile)))
             .orElseGet(() -> ResponseEntity.ok(ApiResponse.ok(new Profile(
-                1L,
                 "Ashish Rathi",
                 "Java Full-Stack Developer",
                 "Pune, Maharashtra",

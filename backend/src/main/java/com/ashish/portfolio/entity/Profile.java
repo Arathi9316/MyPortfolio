@@ -29,9 +29,8 @@ public class Profile {
 
     public Profile() {}
 
-    public Profile(Long id, String fullName, String title, String location, String phone, 
+    public Profile( String fullName, String title, String location, String phone, 
                    String email, String summary, String githubUrl, String linkedinUrl, String resumeUrl) {
-        this.id = id;
         this.fullName = fullName;
         this.title = title;
         this.location = location;
