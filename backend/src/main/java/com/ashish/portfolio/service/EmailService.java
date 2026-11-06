@@ -26,6 +26,9 @@ public class EmailService {
     @Value("${portfolio.contact.recipient-email:rathiashish7079@gmail.com}")
     private String recipientEmail;
 
+    @Value("${portfolio.email.web3forms-key:${WEB3FORMS_KEY:}}")
+    private String web3formsKey;
+
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
@@ -38,9 +41,9 @@ public class EmailService {
             log.info("From: {} <{}>", request.getName(), request.getEmail());
             log.info("Subject: {}", request.getSubject());
             log.info("Message: {}", request.getMessage());
-            log.info("NOTE: Live email dispatch is disabled because 'spring.mail.username' is not set.");
-            log.info("To receive real emails in your inbox, set MAIL_USERNAME and MAIL_PASSWORD in application.properties or environment variables.");
+            log.info("NOTE: Live SMTP dispatch skipped because 'spring.mail.username' is not set.");
             log.info("--------------------------------------------------------------------------------");
+            sendViaHttpRelay(request);
             return;
         }
 
@@ -109,7 +112,9 @@ public class EmailService {
             // 2. Send instant confirmation email back to the visitor
             sendConfirmationToVisitor(request);
         } catch (Exception e) {
-            log.error(">>> [EMAIL ERROR] Failed to send contact notification email: {}", e.getMessage(), e);
+            log.error(">>> [EMAIL ERROR] Failed to send contact notification email via SMTP: {}", e.getMessage(), e);
+            log.info(">>> [EMAIL FALLBACK] Attempting HTTPS email relay fallback (Port 443)...");
+            sendViaHttpRelay(request);
         }
     }
 
@@ -161,6 +166,65 @@ public class EmailService {
         } catch (Exception e) {
             log.warn("Could not dispatch confirmation email to visitor {}: {}", request.getEmail(), e.getMessage());
         }
+    }
+
+    private void sendViaHttpRelay(ContactRequest request) {
+        if (web3formsKey == null || web3formsKey.isBlank()) {
+            log.warn(">>> [HTTP RELAY NOTICE] No WEB3FORMS_KEY configured in environment. If your cloud host (e.g. Render) blocks outbound SMTP ports 587/465, configure WEB3FORMS_KEY to send emails via standard HTTPS (Port 443).");
+            return;
+        }
+
+        try {
+            log.info(">>> [HTTP RELAY] Sending inquiry email via Web3Forms HTTPS API (Port 443)...");
+            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
+                    .connectTimeout(java.time.Duration.ofSeconds(10))
+                    .build();
+
+            String jsonPayload = String.format("""
+                {
+                  "access_key": "%s",
+                  "name": "%s",
+                  "email": "%s",
+                  "subject": "⚡ New Portfolio Inquiry: %s",
+                  "message": "%s",
+                  "from_name": "Ashish Portfolio Inquiry"
+                }
+                """,
+                escapeJson(web3formsKey),
+                escapeJson(request.getName()),
+                escapeJson(request.getEmail()),
+                escapeJson(request.getSubject() != null && !request.getSubject().isBlank() ? request.getSubject() : "Message"),
+                escapeJson(request.getMessage())
+            );
+
+            java.net.http.HttpRequest httpRequest = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create("https://api.web3forms.com/submit"))
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .timeout(java.time.Duration.ofSeconds(15))
+                    .POST(java.net.http.HttpRequest.BodyPublishers.ofString(jsonPayload))
+                    .build();
+
+            java.net.http.HttpResponse<String> response = client.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() >= 200 && response.statusCode() < 300) {
+                log.info(">>> [HTTP RELAY SUCCESS] Inquiry email successfully dispatched to inbox via HTTPS API!");
+            } else {
+                log.error(">>> [HTTP RELAY ERROR] Web3Forms API returned status {}: {}", response.statusCode(), response.body());
+            }
+        } catch (Exception ex) {
+            log.error(">>> [HTTP RELAY FAILED] Exception during HTTPS email relay: {}", ex.getMessage());
+        }
+    }
+
+    private String escapeJson(String input) {
+        if (input == null) return "";
+        return input.replace("\\", "\\\\")
+                    .replace("\"", "\\\"")
+                    .replace("\b", "\\b")
+                    .replace("\f", "\\f")
+                    .replace("\n", "\\n")
+                    .replace("\r", "\\r")
+                    .replace("\t", "\\t");
     }
 
     private String escapeHtml(String input) {
