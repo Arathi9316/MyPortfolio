@@ -61,39 +61,61 @@ public class EmailService {
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a"));
 
             String htmlBody = String.format("""
-                <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
-                    <div style="background: linear-gradient(135deg, #4f46e5, #7c3aed); padding: 20px; border-radius: 12px; color: #ffffff; text-align: center;">
-                        <h2 style="margin: 0; font-size: 20px; font-weight: 700;">⚡ New Portfolio Message</h2>
-                        <p style="margin: 6px 0 0; font-size: 13px; opacity: 0.9;">Received on %s</p>
-                    </div>
-
-                    <div style="padding: 24px 8px;">
-                        <div style="margin-bottom: 16px;">
-                            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Sender Information</span>
-                            <p style="margin: 0; font-size: 15px; font-weight: 600; color: #0f172a;">%s</p>
-                            <a href="mailto:%s" style="font-size: 14px; color: #4f46e5; text-decoration: none;">%s</a>
+                <div style="margin: 0; padding: 24px 12px; background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                    <div style="max-width: 600px; margin: 0 auto; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+                        <!-- Glowing Header Banner -->
+                        <div style="background: linear-gradient(135deg, #4f46e5 0%%, #7c3aed 50%%, #2563eb 100%%); padding: 30px 24px; text-align: left;">
+                            <span style="display: inline-block; background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); color: #ffffff; padding: 4px 12px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                                ⚡ New Portfolio Inquiry
+                            </span>
+                            <h1 style="margin: 12px 0 4px; color: #ffffff; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">
+                                %s sent you a message
+                            </h1>
+                            <p style="margin: 0; color: rgba(255, 255, 255, 0.85); font-size: 12px;">
+                                Received on %s &bull; Stored in Database
+                            </p>
                         </div>
 
-                        <div style="margin-bottom: 16px;">
-                            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Subject</span>
-                            <p style="margin: 0; font-size: 15px; font-weight: 500; color: #0f172a;">%s</p>
+                        <!-- Card Body -->
+                        <div style="padding: 24px;">
+                            <!-- Sender Meta Box -->
+                            <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+                                <div style="margin-bottom: 12px;">
+                                    <span style="font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px;">Sender Name</span>
+                                    <span style="font-size: 16px; font-weight: 600; color: #f8fafc;">%s</span>
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <span style="font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px;">Email Address</span>
+                                    <a href="mailto:%s" style="font-size: 14px; font-weight: 600; color: #818cf8; text-decoration: none;">%s</a>
+                                </div>
+                                <div>
+                                    <span style="font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px;">Subject</span>
+                                    <span style="font-size: 14px; font-weight: 500; color: #38bdf8;">%s</span>
+                                </div>
+                            </div>
+
+                            <!-- Message Box -->
+                            <div style="margin-bottom: 26px;">
+                                <span style="font-size: 11px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">Message Content</span>
+                                <div style="background-color: #090d16; border-left: 4px solid #6366f1; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; padding: 18px; border-radius: 10px; font-size: 14px; line-height: 1.7; color: #e2e8f0; white-space: pre-wrap;">%s</div>
+                            </div>
+
+                            <!-- Action CTA -->
+                            <div style="text-align: center; margin: 28px 0 12px;">
+                                <a href="mailto:%s?subject=Re: %s" style="display: inline-block; background: linear-gradient(135deg, #4f46e5 0%%, #7c3aed 100%%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 12px; font-size: 14px; font-weight: 700; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);">
+                                    Reply to %s &rarr;
+                                </a>
+                            </div>
                         </div>
 
-                        <div style="margin-top: 20px;">
-                            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">Message</span>
-                            <div style="background-color: #f8fafc; border-left: 4px solid #4f46e5; padding: 16px; border-radius: 8px; font-size: 14px; line-height: 1.6; color: #334155; white-space: pre-wrap;">%s</div>
+                        <!-- Footer -->
+                        <div style="background-color: #090d16; border-top: 1px solid #1e293b; padding: 16px; text-align: center; font-size: 11px; color: #64748b;">
+                            Ashish Rathi &bull; Full-Stack Developer Portfolio &bull; Pune, MH
                         </div>
-
-                        <div style="margin-top: 24px; text-align: center;">
-                            <a href="mailto:%s?subject=Re: %s" style="display: inline-block; background-color: #4f46e5; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600;">Reply to %s</a>
-                        </div>
-                    </div>
-
-                    <div style="border-top: 1px solid #f1f5f9; padding-top: 16px; text-align: center; font-size: 12px; color: #94a3b8;">
-                        Ashish Rathi Full-Stack Developer Portfolio • Stored in MySQL
                     </div>
                 </div>
                 """,
+                escapeHtml(request.getName()),
                 timestamp,
                 escapeHtml(request.getName()),
                 escapeHtml(request.getEmail()),
@@ -101,7 +123,7 @@ public class EmailService {
                 escapeHtml(request.getSubject() != null && !request.getSubject().isBlank() ? request.getSubject() : "General Inquiry"),
                 escapeHtml(request.getMessage()),
                 escapeHtml(request.getEmail()),
-                escapeHtml(request.getSubject() != null ? request.getSubject() : "Your inquiry"),
+                escapeHtml(request.getSubject() != null && !request.getSubject().isBlank() ? request.getSubject() : "Your inquiry"),
                 escapeHtml(request.getName())
             );
 
@@ -128,35 +150,66 @@ public class EmailService {
             helper.setSubject("Thanks for reaching out, " + request.getName() + "!");
 
             String confirmationBody = String.format("""
-                <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; color: #1e293b;">
-                    <div style="background: linear-gradient(135deg, #10b981, #06b6d4); padding: 18px; border-radius: 12px; color: #ffffff; text-align: center;">
-                        <h2 style="margin: 0; font-size: 18px; font-weight: 700;">Message Received!</h2>
-                    </div>
-
-                    <div style="padding: 20px 8px;">
-                        <p style="font-size: 15px; line-height: 1.6; color: #334155;">Hi <strong>%s</strong>,</p>
-                        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
-                            Thank you for reaching out via my portfolio website. I have received your message regarding "<strong>%s</strong>" and will review your inquiry and get back to you as soon as possible.
-                        </p>
-
-                        <div style="background-color: #f8fafc; border-left: 3px solid #10b981; padding: 12px 16px; border-radius: 8px; margin: 18px 0; font-size: 13px; color: #64748b; font-style: italic;">
-                            "%s"
+                <div style="margin: 0; padding: 24px 12px; background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                    <div style="max-width: 600px; margin: 0 auto; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+                        <!-- Header Banner -->
+                        <div style="background: linear-gradient(135deg, #10b981 0%%, #06b6d4 100%%); padding: 28px 24px; text-align: left;">
+                            <span style="display: inline-block; background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); color: #ffffff; padding: 4px 12px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                                &bull; Message Received
+                            </span>
+                            <h1 style="margin: 12px 0 4px; color: #ffffff; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">
+                                Thanks for reaching out, %s!
+                            </h1>
+                            <p style="margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 13px;">
+                                I have received your message and will review it promptly.
+                            </p>
                         </div>
 
-                        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
-                            Best regards,<br/>
-                            <strong style="color: #0f172a;">Ashish Rathi</strong><br/>
-                            <span style="font-size: 12px; color: #64748b;">Java Full-Stack Developer | C-DAC Pune & COER</span>
-                        </p>
-                    </div>
+                        <!-- Card Body -->
+                        <div style="padding: 24px;">
+                            <p style="font-size: 15px; line-height: 1.6; color: #cbd5e1; margin-top: 0;">
+                                Hi <strong style="color: #f8fafc;">%s</strong>,
+                            </p>
+                            <p style="font-size: 14px; line-height: 1.6; color: #94a3b8;">
+                                Thank you for getting in touch through my portfolio. Here is a summary of what you submitted:
+                            </p>
 
-                    <div style="border-top: 1px solid #f1f5f9; padding-top: 14px; text-align: center; font-size: 12px; color: #94a3b8;">
-                        Pune, Maharashtra | +91 7037283879 | rathiashish7079@gmail.com
+                            <!-- Quoted Message -->
+                            <div style="background-color: #090d16; border-left: 4px solid #10b981; border-top: 1px solid #1e293b; border-right: 1px solid #1e293b; border-bottom: 1px solid #1e293b; padding: 18px; border-radius: 10px; margin: 18px 0; font-size: 14px; line-height: 1.6; color: #e2e8f0; font-style: italic;">
+                                "%s"
+                            </div>
+
+                            <!-- Developer Signature Box -->
+                            <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 18px; margin-top: 24px;">
+                                <table width="100%%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <strong style="color: #f8fafc; font-size: 16px; display: block;">Ashish Rathi</strong>
+                                            <span style="color: #38bdf8; font-size: 13px; font-weight: 500; display: block; margin-top: 2px;">
+                                                Java Full-Stack Developer &bull; C-DAC Pune (PGCP-AC) &amp; COER
+                                            </span>
+                                            <p style="margin: 10px 0 0; font-size: 12px; color: #94a3b8;">
+                                                Pune, Maharashtra &bull; +91 7037283879 &bull; <a href="mailto:rathiashish7079@gmail.com" style="color: #818cf8; text-decoration: none;">rathiashish7079@gmail.com</a>
+                                            </p>
+                                            <div style="margin-top: 12px;">
+                                                <a href="https://github.com/Arathi9316" style="display: inline-block; background-color: #334155; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-right: 6px;">GitHub</a>
+                                                <a href="https://www.linkedin.com/in/ashish-rathi-428237226/" style="display: inline-block; background-color: #334155; color: #ffffff; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 600;">LinkedIn</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div style="background-color: #090d16; border-top: 1px solid #1e293b; padding: 14px; text-align: center; font-size: 11px; color: #64748b;">
+                            This is an automated confirmation sent from Ashish Rathi's portfolio system.
+                        </div>
                     </div>
                 </div>
                 """,
                 escapeHtml(request.getName()),
-                escapeHtml(request.getSubject() != null && !request.getSubject().isBlank() ? request.getSubject() : "Your inquiry"),
+                escapeHtml(request.getName()),
                 escapeHtml(request.getMessage())
             );
 
